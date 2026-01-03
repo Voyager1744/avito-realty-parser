@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: avito-postgres
+    environment:
+      POSTGRES_USER: avito_user
+      POSTGRES_PASSWORD: avito_password  # В продакшене через secrets!
+      POSTGRES_DB: avito_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U avito_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: avito-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass redis_password  # В продакшене через secrets!
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Позже добавим RabbitMQ и другие сервисы
+
+volumes:
+  postgres_data:
+  redis_data:
