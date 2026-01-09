@@ -25,6 +25,7 @@ dependencies = [
     "fake-useragent>=2.2.0",
     "ruff>=0.14.10",
     "pre-commit>=4.5.1",
+    "beautifulsoup4>=4.14.3",
 ]
 
 [project.optional-dependencies]
@@ -38,15 +39,14 @@ dev = [
 ]
 
 [tool.ruff]
-# Общие настройки
-line-length = 88
+line-length = 79
 target-version = "py311"
-src = ["avito_realty_parser"]  # помогает ruff правильно разрешать импорты
+src = ["avito_realty_parser"]
 
-# Включенные правила
+[tool.ruff.lint]
 select = [
-    "E",   # pycodestyle (ошибки)
-    "W",   # pycodestyle (предупреждения)
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
     "F",   # pyflakes
     "B",   # bugbear
     "C90", # mccabe (complexity)
@@ -57,19 +57,24 @@ ignore = [
     "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107",  # docstrings
 ]
 
-# Настройки isort через ruff
-[tool.ruff.isort]
-combine-as-imports = true
-order-by-type = false
-known-first-party = ["avito_realty_parser"]
+# Настройки isort
+# [tool.ruff.lint.isort]
+# combine-as-imports = true
+# order-by-type = false
+# known-first-party = ["avito_realty_parser"]
 
-[tool.ruff.flake8-quotes]
+[tool.ruff.lint.flake8-quotes]
 inline-quotes = "single"
 
 [tool.flake8]
 ignore = [
-    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107", "E501"
+    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107"
 ]
 max-line-length = 99
 select = "C,E,F,W,B,B950"
 per-file-ignores = { "__init__.py" = ["F401"] }
+
+[dependency-groups]
+dev = [
+    "isort>=7.0.0",
+]

@@ -1,11 +1,19 @@
 """Settings."""
 
-from pydantic import BaseSettings
+import os
 from typing import Optional
 
+from dotenv import load_dotenv
+from dataclasses import dataclass
 
-class Settings(BaseSettings):
+load_dotenv()
+
+
+@dataclass
+class Settings:
     """Настройки приложения"""
+
+    target_url: str = os.getenv("TARGET_URL", "")
 
     # база данных
     POSTGRES_HOST: str = "localhost"
