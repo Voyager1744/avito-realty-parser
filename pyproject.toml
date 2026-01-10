@@ -68,7 +68,7 @@ inline-quotes = "single"
 
 [tool.flake8]
 ignore = [
-    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107"
+    "D100", "D101", "D102", "D103", "D104", "D105", "D106", "D107", "E501",
 ]
 max-line-length = 99
 select = "C,E,F,W,B,B950"
