@@ -39,7 +39,7 @@ dev = [
 ]
 
 [tool.ruff]
-line-length = 79
+line-length = 99
 target-version = "py311"
 src = ["avito_realty_parser"]
 

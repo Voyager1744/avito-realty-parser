@@ -26,9 +26,7 @@ class SyncParser(BaseParser):
                     "--no-sandbox",
                     f"--user-agent={profile['headers']['user-agent']}",
                 ]
-                browser = p.chromium.launch(
-                    headless=False, channel="chrome", args=browser_args
-                )
+                browser = p.chromium.launch(headless=False, channel="chrome", args=browser_args)
                 context = browser.new_context(
                     user_agent=profile["headers"]["user-agent"],
                     viewport=profile["viewport"],
@@ -36,9 +34,7 @@ class SyncParser(BaseParser):
                     timezone_id="Europe/Moscow",
                     # ВАЖНО: передаем только accept-language, остальное генерируется  # noqa
                     extra_http_headers={
-                        "accept-language": profile["headers"][
-                            "accept-language"
-                        ]  # noqa
+                        "accept-language": profile["headers"]["accept-language"]  # noqa
                     },
                     # Дополнительные параметры для реалистичности
                     device_scale_factor=1.0,

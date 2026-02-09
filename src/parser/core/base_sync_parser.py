@@ -38,9 +38,7 @@ class BaseSyncParser:
         self.page: Optional[Page] = None
 
         if self.profile.get("headers", {}).get("user-agent"):
-            self.browser_args.append(
-                f"--user-agent={self.profile['headers']['user-agent']}"
-            )
+            self.browser_args.append(f"--user-agent={self.profile['headers']['user-agent']}")
 
     def start_browser(self):
         """Запуск браузера и создание контекста"""
@@ -51,9 +49,7 @@ class BaseSyncParser:
 
         self.context = self.browser.new_context(
             user_agent=self.profile.get("headers", {}).get("user-agent"),
-            viewport=self.profile.get(
-                "viewport", {"width": 1920, "height": 1080}
-            ),
+            viewport=self.profile.get("viewport", {"width": 1920, "height": 1080}),
             locale="ru-RU",
             timezone_id="Europe/Moscow",
             extra_http_headers={
@@ -141,9 +137,7 @@ class BaseSyncParser:
         except Exception as e:
             logger.debug(f"[Playwright] Pre-navigation ошибка: {e}")
 
-    def goto(
-        self, url: str, wait_until: str = "domcontentloaded"
-    ) -> Optional[str]:
+    def goto(self, url: str, wait_until: str = "domcontentloaded") -> Optional[str]:
         """Переход на URL и получение контента"""
         if not self.page:
             return None

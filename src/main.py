@@ -1,16 +1,21 @@
-from parser.strategies.stupino_flat_links import AvitoFlatLinksCollector
 from config.settings import settings
+from daily_runner import run_forever, run_once
 
 
 def main():
-    collector = AvitoFlatLinksCollector(
-        base_url=settings.target_url,
-    )
+    if settings.run_mode.lower() == "loop":
+        run_forever()
+        return 0
 
-    links = collector.collect_all_links()
-    collector.save_links_to_file()
+    return_code = 0
+    try:
+        import asyncio
 
-    return len(links)
+        asyncio.run(run_once())
+    except Exception:
+        return_code = 1
+        raise
+    return return_code
 
 
 if __name__ == "__main__":
